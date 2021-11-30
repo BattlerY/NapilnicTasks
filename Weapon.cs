@@ -6,6 +6,9 @@
 
         public void Fire(Player player)
         {
+            if (Bullets < 1)
+                return;
+
             player.TakeDamage(Damage);
             Bullets -= 1;
         }
