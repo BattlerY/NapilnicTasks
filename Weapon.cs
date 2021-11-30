@@ -6,7 +6,7 @@
 
         public void Fire(Player player)
         {
-            player.Health -= Damage;
+            player.TakeDamage(Damage);
             Bullets -= 1;
         }
     }
@@ -14,11 +14,17 @@
     class Player
     {
         private int Health;
+
+        public void TakeDamage(int Damage) 
+        {
+            if(Healt > 0)
+                Health -= Damage;
+        }
     }
 
     class Bot
     {
-        public Weapon Weapon;
+        private Weapon Weapon;
 
         public void OnSeePlayer(Player player)
         {
