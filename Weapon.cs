@@ -1,36 +1,48 @@
+class Weapon
+{
+    private int _damage;
+    private int _bullets;
 
-    class Weapon
+    public Weapon(int damage, int bullets)
     {
-        private int Damage;
-        private int Bullets;
-
-        public void Fire(Player player)
-        {
-            if (Bullets < 1)
-                return;
-
-            player.TakeDamage(Damage);
-            Bullets -= 1;
-        }
+        _damage = damage > 0 ? damage : 0;
+        _bullets = bullets > 0 ? bullets : 0;
     }
 
-    class Player
+    public void Fire(Player player)
     {
-        private int Health;
+        if (_bullets <= 0)
+            throw new IndexOutOfRangeException();
 
-        public void TakeDamage(int Damage) 
-        {
-            if(Healt > 0)
-                Health -= Damage;
-        }
+        player.TakeDamage(_damage);
+        _bullets--;
+    }
+}
+
+class Player
+{
+    private int _health;
+
+    public Player(int health) =>
+        _health = health;
+
+    public void TakeDamage(int damage)
+    {
+        if (_health <= 0)
+            throw new IndexOutOfRangeException();
+
+        _health -= damage;
     }
 
-    class Bot
-    {
-        private Weapon Weapon;
+}
 
-        public void OnSeePlayer(Player player)
-        {
-            Weapon.Fire(player);
-        }
-    }
+class Bot
+{
+    private Weapon _weapon;
+
+    public Bot(Weapon weapon) =>
+        _weapon = weapon;
+
+    public void OnSeePlayer(Player player) =>
+        _weapon.Fire(player);
+}
